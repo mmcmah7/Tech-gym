@@ -1,0 +1,138 @@
+
+<% if current_user %>
+<h1 style= "color: white;">Welcome to Tech Gym!</h1>
+
+
+	<div class= "container">
+    <div class="row">
+      <div class="col-md-3" id= "col">
+        <div class="panel panel-default">
+         	<div style="background-color:#CACFD2;" class="panel-heading">
+            <h2 class="panel-title"></h2>
+            <% if current_user.avatar.blank? %>
+              <%= image_tag "default.png", class: "uuser" %>
+                    <% else %> 
+                    <%= image_tag current_user.avatar.url, class: "uuser" %>
+                <% end %>
+          	</div>
+	          <div class="panel-body">
+	              
+	            	<ul style="list-style-type:none">
+			            <b><li><%= link_to current_user.name, show_user_path(id: current_user.id) %>
+			             </li></b> 
+			            <li style="color:gray"> <%= current_user.username %>
+			            </li>
+			            <li><%=current_user.bio %></li>
+		            </ul>
+	           
+	        </div>
+	        </div>
+
+	        <div class="panel panel-default">
+			   <div class="panel-heading">
+			   		<h3>Shop the Best Brands!</h3>
+			   </div>
+			   <div class="panel-body">
+			   	<a href="https://www.dickssportinggoods.com/products/exercise-equipment.jsp">Dick's Sporting goods</a><br>
+			   	<a href="https://fitness4home.com/best-fitness-equipment-brands/">Fitness 4 Home</a><br>
+			   	<a href="https://www.gymsource.com/equipment">Gym Source</a><br>
+			   	<a href="https://www.gymstore.com/Gym-Equipment-Brands-We-Offer-s/3898.htm">Gym Store</a>
+			   </div>
+			 </div>
+	 </div>
+
+	       
+	         
+	          
+
+      
+  
+			<div class="col-md-5">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4><a href="/posts">All Posts:</a></h4>
+			        	<% @all_posts.each do |post| %>
+					        <div>
+						    <p><%= link_to post.user.username, show_user_path(id: post.user.id) %></p>
+						    <p><%= post.message.html_safe %></p>
+							</div>
+					    <% end %>
+					</div>
+				</div>
+
+			</div>
+
+<div class="col-md-4">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4>People to follow</h4>
+			          		
+			          		<% suggest %>
+			          		<% 3.times do |count| %>
+			          		
+			          		<% if @suggestions[count].avatar.url != nil%>
+			          		<%= image_tag @suggestions[count].avatar.url, class: "user" %>
+			          		<% else %>
+			          		<%= image_tag "default.png", class: "user" %>
+			          		<% end %>
+			          	
+			          		
+			          		<b> <%= link_to @suggestions[count].username, show_user_path(id: @suggestions[count].id)%></b><br>
+			          		
+			          		Bio: <%= @suggestions[count].bio %><br>
+			          		
+			          		<div class= "content">
+			          		<%= link_to "Follow", unfollow_path(id: @suggestions[count].id), class: "btn btn-default", id:"unfollow" %>
+			          		</div>
+			          	<% end %>
+			          	</div>
+			          		
+			          	</div>
+			          	
+
+			          	<div class="panel panel-default">
+			        	<div class="panel-heading">
+
+					    <h4>Following posts:</h4>
+						<div>
+						    <% @following_posts.each do |post| %>
+						        <div>
+							    <p><%=link_to post.user.username, show_user_path(id: post.user.id) %></p>
+							    <p><%= post.message.html_safe %></p>
+								</div>
+						    	<% end %>
+						</div>
+
+			        	</div>
+			        </div>
+
+	          </div>
+
+
+		</div>
+	</div>
+</div>
+
+<%else%>
+
+<h1 style= "color: white;">Latest Workout's posted:</h2>
+
+<div class="container">
+<div class="row">
+  <div class="col-md-12">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+	<div>
+    <% @all_posts.each do |post| %>
+        <div>
+	    <p><%= post.user.username %></p>
+	    <p><%= post.message.html_safe %></p>
+	</div>
+    <% end %>
+</div>
+<% end %>
+</div>
+</div>
+</div>
+</div>
+</div>

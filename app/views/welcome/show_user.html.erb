@@ -1,0 +1,49 @@
+<h1 style= "color: white;"><%= @user.username %>'s Profile & posts</h1>
+
+<div class="container">
+<div class="row">
+  <div class="col-md-4">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+
+                    <% if @user.avatar.blank? %>
+                    <%= image_tag "default.png", class: "userr" %>
+                      <% else %> 
+                      <%= image_tag user.avatar.url, class: "userr" %>
+                    <% end %>
+<div class= "float">
+<p><%= @user.name %></p>
+<p><%= @user.location %></p>
+<p><%= @user.bio %></p>
+</div>
+<p>
+    <% if current_user.following.include?(@user.id) %>
+        <%= link_to "Unfollow", unfollow_path(id: @user.id), class: "btn btn-defualt" %>
+    <% else %>
+        <% if current_user.id != @user.id %>
+	    <%= link_to "Follow", now_following_path(id: @user.id), class: "btn btn-default" %>
+	<% end %>
+    <% end %>
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="container">
+<div class="row">
+  <div class="col-md-12">
+<div class="panel panel-default">
+    <div class="panel-heading">
+<% @user.posts.each do |post| %>
+    <div>
+        <p><%= @user.username %></p>
+	<p><%= post.message %></p>
+    </div>
+<% end %>
+</div>
+</div>
+</div>
+</div>
+</div>
