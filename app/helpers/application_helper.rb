@@ -2,8 +2,7 @@ module ApplicationHelper
 	def suggest
 		
     	@suggestions = []
-
-      	User.all.each do |user|
+      	  User.where.not(id: current_user.id).each do |user|
         unless current_user.following.include?(user.id) 
           @suggestions.push(user)
           @suggestions.shuffle!

@@ -9,7 +9,7 @@
                     <% if @user.avatar.blank? %>
                     <%= image_tag "default.png", class: "userr" %>
                       <% else %> 
-                      <%= image_tag user.avatar.url, class: "userr" %>
+                      <%= image_tag @user.avatar.url, class: "userr" %>
                     <% end %>
 <div class= "float">
 <p><%= @user.name %></p>
